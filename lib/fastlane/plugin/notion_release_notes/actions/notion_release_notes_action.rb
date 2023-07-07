@@ -21,7 +21,7 @@ module Fastlane
         version = get_version_details params
 
         if version == nil then
-          UI.abort_with_message! "Version #{params[:version]}"
+          UI.abort_with_message! "Version #{params[:version]} not found on Notion"
         end
 
         tasks = []
