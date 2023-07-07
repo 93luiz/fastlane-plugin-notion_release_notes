@@ -1,0 +1,3 @@
+lane :test do
+  notion_release_notes
+end
