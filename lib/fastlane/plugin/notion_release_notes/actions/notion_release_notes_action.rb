@@ -53,7 +53,7 @@ module Fastlane
           all_versions.concat(page.results)
         end
         all_versions = all_versions.map { |r| Item.new(r) }
-        version = {}
+        version = nil
         all_versions.each do |ver|
           if (ver.title.title == params[:version]) then
             version = ver
