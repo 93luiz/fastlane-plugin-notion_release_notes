@@ -20,6 +20,10 @@ module Fastlane
 
         version = get_version_details params
 
+        if version == nil then
+          UI.abort_with_message! "Version #{params[:version]}"
+        end
+
         tasks = []
         @@client.database_query(
           database_id: params[:tasks_database],
