@@ -54,7 +54,7 @@ module Fastlane
 
       def initialize(original_data, name = nil)
         super
-        @title = original_data.title[0].plain_text
+        @title = original_data.title.map{ |t| t.plain_text }.reduce(:+)
       end
 
       def to_json(params = {})
