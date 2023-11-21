@@ -5,8 +5,8 @@ require 'fastlane/plugin/notion_release_notes/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-notion_release_notes'
   spec.version       = Fastlane::NotionReleaseNotes::VERSION
-  spec.author        = 'Gustavo Fernandes'
-  spec.email         = 'gustavofernandes@vivaweb.net'
+  spec.author        = 'Gustavo Luiz Fernandes'
+  spec.email         = 'glfernandes@icloud.com'
 
   spec.summary       = 'Fetches tasks from notion database and assembles release notes in markdown format'
   # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-notion_release_notes"

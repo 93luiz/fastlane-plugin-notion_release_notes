@@ -1,4 +1,5 @@
 require 'fastlane/action'
+require 'erb'
 require_relative '../helper/notion_release_notes_helper'
 require_relative '../model/item'
 require_relative '../model/property'
@@ -45,6 +46,12 @@ module Fastlane
         lines = tasks.map { |t| t.format_line+"\n\n" }
 
         lines.reduce "", :+
+
+        template = ERB.new(File.read('../default_template.erb'), trim_mode: "-")
+        result = template.result_with_hash(
+          tasks: tasks,
+        )
+
       end
 
       def self.get_version_details(params)
@@ -68,7 +75,7 @@ module Fastlane
       end
 
       def self.authors
-        ["Gustavo Fernandes"]
+        ["Gustavo Luiz Fernandes"]
       end
 
       def self.return_value
