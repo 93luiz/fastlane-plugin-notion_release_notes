@@ -30,6 +30,8 @@ module Fastlane
           return UniqueId.new original_data, name
         when "rich_text"
           return Text.new original_data, name
+        when "url"
+          return Url.new original_data, name
         else
           return Property.new original_data, name
         end
@@ -137,5 +139,25 @@ module Fastlane
           ]
       end
     end
+
+    class Url < Property
+      String @url
+
+      attr_reader :url
+
+      def initialize(original_data, name = nil)
+        super
+        @url = original_data.url
+      end
+
+      def to_json(params = {})
+        Hash[ super(params).to_a.insert(JSON_DATA_SIZE, ['url', @url]) ]
+      end
+
+      def to_s
+        @url
+      end
+    end
+
   end
 end
