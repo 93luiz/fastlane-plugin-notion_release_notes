@@ -43,13 +43,10 @@ module Fastlane
         end
         tasks = tasks.map { |t| Task.new t }
 
-        lines = tasks.map { |t| t.format_line+"\n\n" }
-
-        lines.reduce "", :+
-
-        template = ERB.new(File.read('../default_template.erb'), trim_mode: "-")
+        template = ERB.new(File.read(params[:template]), trim_mode: "-")
         result = template.result_with_hash(
           tasks: tasks,
+          version: version,
         )
 
       end
@@ -105,14 +102,20 @@ module Fastlane
             description: "Tasks database ID",
           ),
           FastlaneCore::ConfigItem.new(
+            key: :tasks_version_prop_name,
+            env_name: "FL_NOTION_RELEASE_NOTES_TASKS_RELATION_PROP_NAME",
+            description: "Name of the relation property on the tasks database that relates to the versions database",
+          ),
+          FastlaneCore::ConfigItem.new(
             key: :version,
             env_name: "FL_NOTION_RELEASE_NOTES_VERSION",
             description: "Name of the target version",
           ),
           FastlaneCore::ConfigItem.new(
-            key: :tasks_version_prop_name,
-            env_name: "FL_NOTION_RELEASE_NOTES_TASKS_RELATION_PROP_NAME",
-            description: "Name of the relation property on the tasks database that relates to the versions database",
+            key: :template,
+            env_name: "FL_NOTION_RELEASE_NOTES_TEMPLATE",
+            description: "Template for release notes result",
+            default_value: "../default_template.erb"
           ),
         ]
       end
