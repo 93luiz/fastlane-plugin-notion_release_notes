@@ -44,7 +44,7 @@ module Fastlane
         tasks = tasks.map { |t| Task.new t }
 
         template_path = if params[:template] != nil
-            File.read(params[:template])
+            params[:template]
           else
             File.join(File.dirname(File.expand_path(__FILE__)), '../default_template.erb')
           end
