@@ -43,7 +43,13 @@ module Fastlane
         end
         tasks = tasks.map { |t| Task.new t }
 
-        template = ERB.new(File.read(params[:template]), trim_mode: "-")
+        template_path = if params[:template] != nil
+            File.read(params[:template])
+          else
+            File.join(File.dirname(File.expand_path(__FILE__)), '../default_template.erb')
+          end
+
+        template = ERB.new(File.read(template_path), trim_mode: "-")
         result = template.result_with_hash(
           tasks: tasks,
           version: version,
@@ -115,7 +121,7 @@ module Fastlane
             key: :template,
             env_name: "FL_NOTION_RELEASE_NOTES_TEMPLATE",
             description: "Template for release notes result",
-            default_value: "../default_template.erb"
+            optional: true,
           ),
         ]
       end
