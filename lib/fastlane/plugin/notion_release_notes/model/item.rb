@@ -46,6 +46,7 @@ module Fastlane
             return property
           end
         end
+        nil
       end
     end
   end

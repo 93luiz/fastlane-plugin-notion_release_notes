@@ -28,6 +28,8 @@ module Fastlane
           return Relation.new original_data, name
         when "unique_id"
           return UniqueId.new original_data, name
+        when "rich_text"
+          return Text.new original_data, name
         else
           return Property.new original_data, name
         end
@@ -63,6 +65,29 @@ module Fastlane
 
       def to_s
         @title
+      end
+    end
+
+    class Text < Property
+      String @text
+
+      attr_reader :text
+
+      def initialize(original_data, name = nil)
+        super
+        @text = if original_data.rich_text.empty?
+            nil
+          else
+            original_data.rich_text.map{ |t| t.plain_text }.reduce(:+)
+          end
+      end
+
+      def to_json(params = {})
+        Hash[ super(params).to_a.insert(JSON_DATA_SIZE, ['text', @text]) ]
+      end
+
+      def to_s
+        @text
       end
     end
 
